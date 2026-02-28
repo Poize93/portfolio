@@ -190,8 +190,7 @@ function App() {
             <span className="hero-title-line">I'm Shweta Sharma</span>
           </h2>
           <p className="hero-tagline">
-            A designer & creative developer. I give ideas a bold, recognizable
-            identity that comes alive through design and motion.
+           A Motion , Graphic & Ui Designer crafting purposeful visuals that move , connect and communicate.
           </p>
           <a href="#work" className="hero-cta">
             Let's meet
@@ -199,6 +198,20 @@ function App() {
           <p className="hero-scroll-hint" ref={heroScrollRef}>
             Scroll
           </p>
+        </section>
+
+
+           {/* About */}
+           <section className="section section--mint" id="about">
+          <h2 className="section-title section-title--large">About</h2>
+          <p className="section-text section-text--large">
+            I don't just design visuals - I design experiences.
+          </p>
+          <p className="section-text">
+           With a background in motion graphics, branding and UI designs , I blend storytelling with structure. Whether It's a logo that speaks , a frame that moves , or an interfacethat flows - I design with intension.
+          </p>
+          <p className="section-text">
+          Tools I use to bring ideas to life: After Effects , Illustrator , Photoshop, Premiere Pro , Figma</p>
         </section>
 
         <CarouselSection
@@ -252,18 +265,7 @@ function App() {
           type="skill"
         />
 
-        {/* About */}
-        <section className="section section--mint" id="about">
-          <h2 className="section-title section-title--large">About</h2>
-          <p className="section-text section-text--large">
-            I'm Shweta Sharma — a designer and creative developer focused on
-            brand identity, digital experiences, and thoughtful motion design. I
-            believe in work that is bold, clear, and memorable.
-          </p>
-          <p className="section-text">
-            Currently available for select projects and collaborations.
-          </p>
-        </section>
+     
 
         <section className="section section--lavender">
           <h2 className="section-title section-title--large">Services</h2>
@@ -277,8 +279,12 @@ function App() {
 
         <section className="section section--cream" id="contact">
           <h2 className="section-title section-title--large">
-            Let's work together
+            Let's Create
           </h2>
+          <p className="section-text">
+          have a Project in mind?</p> <p className="section-text">
+          Let's build together something meaningful togther</p>
+     
           <a href="mailto:hello@shwetasharma.com" className="contact-email">
             hello@shwetasharma.com
           </a>
