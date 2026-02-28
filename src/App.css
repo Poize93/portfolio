@@ -372,6 +372,31 @@ body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  position: relative;
+}
+
+.project-card-image--video .project-card-play-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.project-card:hover .project-card-play-hint {
+  opacity: 1;
 }
 
 .project-card-image img {
@@ -379,6 +404,16 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.project-card-video {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  border: none;
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
 }
 
 .project-card-info {
@@ -406,6 +441,99 @@ body {
 .project-card-year {
   font-size: 0.9rem;
   opacity: 0.65;
+}
+
+/* ========== VIDEO MODAL (popup) ========== */
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: videoModalFadeIn 0.25s ease;
+}
+
+@keyframes videoModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.video-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: videoModalSlideIn 0.3s ease;
+}
+
+@keyframes videoModalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.video-modal-close:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.video-modal-player {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  background: #000;
+}
+
+.video-modal-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-modal-title {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
 }
 
 /* ========== CONTACT ========== */

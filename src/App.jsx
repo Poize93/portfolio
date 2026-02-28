@@ -2,10 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { projects } from "./data/projects";
+import { projects , motionGraphics, graphicDesigns} from "./data/projects";
 import {
-  motionGraphics,
-  graphicDesign,
   uiCaseStudy,
   digitalDesigns,
   skillsAndTools,
@@ -89,12 +87,68 @@ function Nav({ scrolled }) {
   );
 }
 
+// Video popup modal – overlay + iframe + close
+function VideoModal({ isOpen, videoUrl, title, onClose }) {
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleEscape);
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="video-modal-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={title || "Video"}
+    >
+      <div className="video-modal-box" onClick={(e) => e.stopPropagation()}>
+        <button
+          type="button"
+          className="video-modal-close"
+          onClick={onClose}
+          aria-label="Close video"
+        >
+          ×
+        </button>
+        <div className="video-modal-player">
+          <iframe
+            src={videoUrl}
+            title={title || "Video"}
+            allow="autoplay; fullscreen"
+            allowFullScreen
+          />
+        </div>
+        {title && <p className="video-modal-title">{title}</p>}
+      </div>
+    </div>
+  );
+}
+
 // Reusable section: title + auto-scrolling carousel (no scrollbar)
-function CarouselSection({ id, title, subtitle, items, type = "card" }) {
+function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCardClick }) {
   const isCard = type === "card";
   const isSkill = type === "skill";
   // Duplicate items for seamless infinite scroll
   const duplicated = [...items, ...items];
+
+  const handleCardClick = (item, e) => {
+    if (item.video && onVideoCardClick) {
+      e.preventDefault();
+      onVideoCardClick(item);
+    }
+  };
 
   return (
     <section className="work-section" id={id}>
@@ -109,15 +163,29 @@ function CarouselSection({ id, title, subtitle, items, type = "card" }) {
               <a
                 key={`card-${item.id}-${i}`}
                 href={item.link || "#"}
-                className="project-card"
+                className="project-card project-card--video-wrap"
                 style={{ "--card-color": item.color }}
+                onClick={(e) => handleCardClick(item, e)}
               >
-                <div className="project-card-image">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                  />
+                <div className={`project-card-image ${item.video ? "project-card-image--video" : ""}`}>
+                  {item.video ? (
+                    <>
+                      <iframe
+                        src={item.video}
+                        title={item.title}
+                        allow="autoplay; fullscreen"
+                        allowFullScreen
+                        className="project-card-video"
+                      />
+                      <span className="project-card-play-hint">Click to watch</span>
+                    </>
+                  ) : (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                  )}
                 </div>
                 <div className="project-card-info">
                   {item.category && (
@@ -148,8 +216,14 @@ function CarouselSection({ id, title, subtitle, items, type = "card" }) {
 function App() {
   const [introDone, setIntroDone] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [videoModal, setVideoModal] = useState({ open: false, url: null, title: "" });
   const mainRef = useRef(null);
   const heroScrollRef = useRef(null);
+
+  const openVideoModal = (item) => {
+    if (item?.video) setVideoModal({ open: true, url: item.video, title: item.title || "" });
+  };
+  const closeVideoModal = () => setVideoModal((m) => ({ ...m, open: false }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100);
@@ -176,6 +250,12 @@ function App() {
 
   return (
     <div className="app" ref={mainRef}>
+      <VideoModal
+        isOpen={videoModal.open}
+        videoUrl={videoModal.url}
+        title={videoModal.title}
+        onClose={closeVideoModal}
+      />
       <IntroLoader onComplete={() => setIntroDone(true)} />
 
       {introDone && (
@@ -223,13 +303,17 @@ function App() {
             link: p.link,
           }))}
           type="card"
+          onVideoCardClick={openVideoModal}
         />
 
         <CarouselSection
           id="motion-graphics"
           title="Motion Graphics"
           subtitle="Motion and animation work."
-          items={motionGraphics}
+          items={motionGraphics.map((p) => ({
+            ...p,
+            link: p.link,
+          }))}
           type="card"
         />
 
@@ -237,7 +321,10 @@ function App() {
           id="graphic-design"
           title="Graphic Design"
           subtitle="Branding, editorial, and print."
-          items={graphicDesign}
+          items={graphicDesigns.map((p) => ({
+            ...p,
+            link: p.link,
+          }))}
           type="card"
         />
 
