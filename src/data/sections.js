@@ -125,16 +125,27 @@ export const digitalDesigns = [
 ];
 
 export const skillsAndTools = [
-  { id: 1, name: "Figma" },
-  { id: 2, name: "Adobe XD" },
-  { id: 3, name: "After Effects" },
-  { id: 4, name: "Premiere Pro" },
-  { id: 5, name: "Illustrator" },
-  { id: 6, name: "Photoshop" },
-  { id: 7, name: "GSAP" },
-  { id: 8, name: "React" },
-  { id: 9, name: "HTML / CSS" },
-  { id: 10, name: "Cinema 4D" },
-  { id: 11, name: "Blender" },
-  { id: 12, name: "InDesign" },
+  { id: 1, name: "Motion Graphics" },
+  { id: 2, name: "Storyboarding" },
+  { id: 3, name: "Video Editing" },
+  { id: 4, name: "Animation Principles" },
+  { id: 5, name: "Social Media Creatives" },
+  { id: 6, name: "Banner Design" },
+  { id: 7, name: "Typography" },
+  { id: 8, name: "After Effects" },
+  { id: 9, name: "=Premiere Pro" },
+  { id: 10, name: "Illustrator" },
+  { id: 11, name: "Photioshop" },
+  { id: 12, name: "Figma" },
+];
+
+export const aiWorkFlow = [
+  { id: 1, name: "ChatGPt" },
+  { id: 2, name: "Google Gemini" },
+  { id: 3, name: "Leonardo AI" },
+  { id: 4, name: "Adobe firefly" },
+  { id: 5, name: "Heygen AI" },
+  { id: 6, name: "Gooogle Flow" },
+  { id: 7, name: "Elevenlabs" },
+  { id: 8, name: "Minimax" },
 ];

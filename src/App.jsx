@@ -8,13 +8,20 @@ import {
   uiCaseStudy,
   // digitalDesigns,
   skillsAndTools,
+  aiWorkFlow
 } from "./data/sections";
 import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Get Google Drive thumbnail from preview URL (carousel shows thumbnail; full video loads in popup)
+function getDriveThumbnailUrl(previewUrl, size = "w400") {
+  const m = previewUrl && previewUrl.match(/\/d\/([^/]+)/);
+  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=${size}` : previewUrl;
+}
+
 // Split name for logo-driven intro (like Melvin Winkeler: M / elvin / W / inkeler)
-const INTRO_LINES = ["Shweta", "Sharma"];
+const INTRO_LINES = ["Shweta", "Dwivedi"];
 
 function IntroLoader({ onComplete }) {
   const containerRef = useRef(null);
@@ -103,7 +110,7 @@ function Nav({ scrolled }) {
   return (
     <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
       <a href="#" className="nav-logo" ref={logoRef}>
-        Shweta Sharma
+        Shweta Dwivedi
       </a>
       <div className="nav-links">
         <a href="#work">Work</a>
@@ -170,14 +177,19 @@ function VideoModal({ isOpen, videoUrl, imageUrl, title, onClose }) {
 }
 
 // Reusable section: title + auto-scrolling carousel with manual scroll
-function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCardClick }) {
+function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCardClick, modalOpenRef }) {
   const isCard = type === "card";
   const isSkill = type === "skill";
   const carouselRef = useRef(null);
   const autoScrollRef = useRef(null);
   const draggedRef = useRef(false);
+  const [failedThumbnails, setFailedThumbnails] = useState(new Set());
   // Duplicate items for seamless infinite scroll
   const duplicated = [...items,...items];
+
+  const markThumbnailFailed = (key) => {
+    setFailedThumbnails((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+  };
 
   // Auto-scroll + manual click-and-drag scroll
   useEffect(() => {
@@ -192,7 +204,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
     let startScrollLeft = 0;
 
     const animate = (now) => {
-      if (isDragging) {
+      if (isDragging || (modalOpenRef && modalOpenRef.current)) {
         autoScrollRef.current = requestAnimationFrame(animate);
         return;
       }
@@ -293,21 +305,42 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
                 <div className={`project-card-image ${item.video ? "project-card-image--video" : ""}`}>
                   {item.video ? (
                     <>
-                      <iframe
-                        src={item.video}
-                        title={item.title}
-                        allow="autoplay; fullscreen"
-                        allowFullScreen
-                        className="project-card-video"
-                      />
+                      {failedThumbnails.has(`v-${item.id}-${i}`) ? (
+                        <iframe
+                          src={item.video}
+                          title={item.title}
+                          allow="autoplay; fullscreen"
+                          allowFullScreen
+                          className="project-card-video"
+                        />
+                      ) : (
+                        <img
+                          src={item.thumbnail || getDriveThumbnailUrl(item.video)}
+                          alt=""
+                          loading="lazy"
+                          className="project-card-thumbnail"
+                          onError={() => markThumbnailFailed(`v-${item.id}-${i}`)}
+                        />
+                      )}
                       <span className="project-card-play-hint">Click to watch</span>
                     </>
                   ) : (
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                    />
+                    <>
+                      {failedThumbnails.has(`i-${item.id}-${i}`) ? (
+                        <div
+                          className="project-card-image-fallback"
+                          style={{ background: item.color }}
+                          aria-hidden
+                        />
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt=""
+                          loading="lazy"
+                          onError={() => markThumbnailFailed(`i-${item.id}-${i}`)}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
                 <div className="project-card-info">
@@ -342,6 +375,8 @@ function App() {
   const [videoModal, setVideoModal] = useState({ open: false, videoUrl: null, imageUrl: null, title: "" });
   const mainRef = useRef(null);
   const heroScrollRef = useRef(null);
+  const modalOpenRef = useRef(false);
+  modalOpenRef.current = videoModal.open;
 
   const openVideoModal = (item) => {
     if (!item) return;
@@ -393,7 +428,7 @@ function App() {
       <main className="main">
         <section className="hero">
           <h2 className="hero-title">
-            <span className="hero-title-line">I'm Shweta Sharma</span>
+            <span className="hero-title-line">I'm Shweta Dwivedi</span>
           </h2>
           <p className="hero-tagline">
            A Motion , Graphic & Ui Designer crafting purposeful visuals that move , connect and communicate.
@@ -419,7 +454,7 @@ function App() {
           <p className="section-text">
           Tools I use to bring ideas to life: After Effects , Illustrator , Photoshop, Premiere Pro , Figma</p>
         </section>
-
+{/* 
         <CarouselSection
           id="work"
           title="Selected Work"
@@ -430,7 +465,8 @@ function App() {
           }))}
           type="card"
           onVideoCardClick={openVideoModal}
-        />
+          modalOpenRef={modalOpenRef}
+        /> */}
 
         <CarouselSection
           id="motion-graphics"
@@ -442,6 +478,7 @@ function App() {
           }))}
           type="card"
           onVideoCardClick={openVideoModal}
+          modalOpenRef={modalOpenRef}
         />
 
         <CarouselSection
@@ -454,6 +491,7 @@ function App() {
           }))}
           type="card"
           onVideoCardClick={openVideoModal}
+          modalOpenRef={modalOpenRef}
         />
 
         <CarouselSection
@@ -462,18 +500,21 @@ function App() {
           subtitle="Interface and experience design."
           items={uiCaseStudy}
           type="card"
+          onVideoCardClick={openVideoModal}
+          modalOpenRef={modalOpenRef}
         />
 
         <CarouselSection
           id="digital-designs"
           title="Digital Designs"
           subtitle="Web and digital experiences."
-          // items={digitalDesigns}
           items={digitalDesigns.map((p) => ({
             ...p,
             link: p.link,
           }))}
           type="card"
+          onVideoCardClick={openVideoModal}
+          modalOpenRef={modalOpenRef}
         />
 
           <CarouselSection
@@ -486,6 +527,7 @@ function App() {
           }))}
           type="card"
           onVideoCardClick={openVideoModal}
+          modalOpenRef={modalOpenRef}
         />
 
         
@@ -496,6 +538,17 @@ function App() {
           subtitle="What I use to bring ideas to life."
           items={skillsAndTools}
           type="skill"
+          modalOpenRef={modalOpenRef}
+        />
+
+
+        <CarouselSection
+          id="ai-workflow"
+          title="AI Workflow"
+          subtitle="What I use to bring ideas to life."
+          items={aiWorkFlow}
+          type="skill"
+          modalOpenRef={modalOpenRef}
         />
 
      
@@ -536,7 +589,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <span>© {new Date().getFullYear()} Shweta Sharma</span>
+        <span>© {new Date().getFullYear()} Shweta Dwivedi</span>
       </footer>
     </div>
   );
