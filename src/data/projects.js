@@ -397,3 +397,68 @@ const digitalDesignsUrl= [
     },
    
   ]
+
+  const UIDesignsUrl=[
+    "https://drive.google.com/file/d/1diXvBP7nTyvsNKYXK49mq9je0w7wshGD/preview",
+    "https://drive.google.com/file/d/1LpMS0owkB_wdzrJHqecF-ryuCC2YS0Oj/preview",
+    "https://drive.google.com/file/d/1bSd2Ke571vVkAeogFvDMalUrPLntPghI/preview",
+    "https://drive.google.com/file/d/1kH1uGGYemeG7_vIY20IbJtIKL9hnabdq/preview",
+    "https://drive.google.com/file/d/1zxnW11j7S4xZW_LdRNnSYb-tvvuzdUd9/preview",
+    "https://drive.google.com/file/d/1wN_4oGwaeHp5bqtqfYKdxOvM4l56d4mR/preview"
+  ];
+
+
+  export const UIDesigns=[  {
+    id: 0,
+    title: "Showreel / UIDesigns 0",
+    category: "UIDesigns",
+    year: "2025",
+    video: UIDesignsUrl[0],
+    color: "#E8D5B7",
+    link: "#",
+  },
+  {
+    id: 1,
+    title: "Showreel / UIDesigns 1",
+    category: "UIDesigns",
+    year: "2025",
+    video: UIDesignsUrl[1],
+    color: "#E8D5B7",
+    link: "#",
+  },
+  {
+    id: 2,
+    title: "Showreel / UIDesigns 2",
+    category: "UIDesigns",
+    year: "2025",
+    video: UIDesignsUrl[2],
+    color: "#E8D5B7",
+    link: "#",
+    },
+    {
+      id: 3,
+      title: "Showreel / UIDesigns 3",
+      category: "UIDesigns",
+      year: "2025",
+      video: UIDesignsUrl[3],
+      color: "#E8D5B7",
+      link: "#",
+    } ,
+      {
+        id: 4,
+        title: "Showreel / UIDesigns 4",
+        category: "UIDesigns",
+        year: "2025",
+        video: UIDesignsUrl[4],
+        color: "#E8D5B7",
+        link: "#",
+      },
+      {
+        id:5 ,
+        title: "Showreel / UIDesigns 5",
+        category: "UIDesigns",
+        year: "2025",
+        video: UIDesignsUrl[5],
+        color: "#E8D5B7",
+        link: "#",
+      },]

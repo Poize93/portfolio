@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { projects , motionGraphics, graphicDesigns, digitalDesigns, digitalIllustrations} from "./data/projects";
+import { projects , UIDesigns, motionGraphics, graphicDesigns, digitalDesigns, digitalIllustrations} from "./data/projects";
 import {
   // graphicDesign,
   uiCaseStudy,
@@ -185,7 +185,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
   const draggedRef = useRef(false);
   const [failedThumbnails, setFailedThumbnails] = useState(new Set());
   // Duplicate items for seamless infinite scroll
-  const duplicated = [...items,...items];
+  const duplicated = [...items];
 
   const markThumbnailFailed = (key) => {
     setFailedThumbnails((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
@@ -197,7 +197,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
     if (!el) return;
 
     const scrollPos = { value: 0 };
-    const duration = 50000;
+    const duration = 100000;
     let lastTime = performance.now();
     let isDragging = false;
     let startX = 0;
@@ -446,13 +446,12 @@ function App() {
            <section className="section section--mint" id="about">
           <h2 className="section-title section-title--large">About</h2>
           <p className="section-text section-text--large">
-            I don't just design visuals - I design experiences.
+          I work across motion graphics, UI design, and digital branding, using tools like After Effects, Illustrator, Premiere Pro, Photoshop, and Figma. I love blending creativity with strategy-because good design shouldn’t just look beautiful, it should communicate.
           </p>
           <p className="section-text">
-           With a background in motion graphics, branding and UI designs , I blend storytelling with structure. Whether It's a logo that speaks , a frame that moves , or an interfacethat flows - I design with intension.
-          </p>
-          <p className="section-text">
-          Tools I use to bring ideas to life: After Effects , Illustrator , Photoshop, Premiere Pro , Figma</p>
+          From social campaigns to UI experiences and brand visuals, I design with intention, clarity, and a touch of bold storytelling.    </p>
+          {/* <p className="section-text">
+          Tools I use to bring ideas to life: After Effects , Illustrator , Photoshop, Premiere Pro , Figma</p> */}
         </section>
 {/* 
         <CarouselSection
@@ -471,7 +470,7 @@ function App() {
         <CarouselSection
           id="motion-graphics"
           title="Motion Graphics"
-          subtitle="Motion and animation work."
+          subtitle="Engaging animations, explainer videos, and branded visual content."
           items={motionGraphics.map((p) => ({
             ...p,
             link: p.link,
@@ -484,7 +483,7 @@ function App() {
         <CarouselSection
           id="graphic-design"
           title="Graphic Design"
-          subtitle="Branding, editorial, and print."
+          subtitle="Strategic social creatives, packaging, and marketing visuals."
           items={graphicDesigns.map((p) => ({
             ...p,
             link: p.link,
@@ -495,10 +494,13 @@ function App() {
         />
 
         <CarouselSection
-          id="ui-case-study"
-          title="UI Case Study"
-          subtitle="Interface and experience design."
-          items={uiCaseStudy}
+          id="ui-designs"
+          title="UI Designs"
+          subtitle="Clean, intuitive website and mobile interface designs."
+          items={UIDesigns.map((p) => ({
+            ...p,
+            link: p.link,
+          }))}
           type="card"
           onVideoCardClick={openVideoModal}
           modalOpenRef={modalOpenRef}
@@ -545,7 +547,7 @@ function App() {
         <CarouselSection
           id="ai-workflow"
           title="AI Workflow"
-          subtitle="What I use to bring ideas to life."
+          subtitle="Smart workflows and concept development using AI tools."
           items={aiWorkFlow}
           type="skill"
           modalOpenRef={modalOpenRef}
@@ -571,19 +573,19 @@ function App() {
           have a Project in mind?</p> <p className="section-text">
           Let's build together something meaningful togther</p>
      
-          <a href="mailto:hello@shwetasharma.com" className="contact-email">
-            hello@shwetasharma.com
+          <a href="mailto:shwetadwivedi882@gmail.com" className="contact-email">
+          shwetadwivedi882@gmail.com
           </a>
           <div className="contact-links">
             <a href="#" target="_blank" rel="noopener noreferrer">
               Instagram
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/shweta-dwivedi-6075b1224?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            {/* <a href="#" target="_blank" rel="noopener noreferrer">
               Dribbble
-            </a>
+            </a> */}
           </div>
         </section>
       </main>

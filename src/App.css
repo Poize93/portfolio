@@ -241,12 +241,12 @@ body {
 }
 
 .section-title--large {
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-size: clamp(2.5rem, 8vw, 4rem);
 }
 
 .section-sub {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
-  max-width: 36ch;
+  max-width: 106ch;
   opacity: 0.9;
 }
 

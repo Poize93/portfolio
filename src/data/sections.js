@@ -133,9 +133,9 @@ export const skillsAndTools = [
   { id: 6, name: "Banner Design" },
   { id: 7, name: "Typography" },
   { id: 8, name: "After Effects" },
-  { id: 9, name: "=Premiere Pro" },
+  { id: 9, name: "Premiere Pro" },
   { id: 10, name: "Illustrator" },
-  { id: 11, name: "Photioshop" },
+  { id: 11, name: "Photoshop" },
   { id: 12, name: "Figma" },
 ];
 
