@@ -301,30 +301,25 @@ body {
   display: none;
 }
 
-/* Auto-scroll: no scrollbar, track moves automatically */
+/* Auto-scroll + manual drag scroll: overflow for scrollLeft, JS drives animation */
 .work-carousel--auto {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 0 2.5rem 2rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.work-carousel--auto::-webkit-scrollbar {
+  display: none;
 }
 
 .work-carousel-track--auto {
   display: flex;
   gap: 2rem;
   width: max-content;
-  animation: carouselScroll 50s linear infinite;
-}
-
-@keyframes carouselScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.work-carousel--auto:hover .work-carousel-track--auto {
-  animation-play-state: paused;
 }
 
 .work-carousel-track {
@@ -362,6 +357,7 @@ body {
   color: var(--ink);
   transition: transform 0.25s ease;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .project-card:hover {
@@ -525,6 +521,20 @@ body {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.video-modal-player--image {
+  padding-bottom: 0;
+  height: auto;
+  min-height: 200px;
+}
+
+.video-modal-player--image .video-modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  display: block;
+  object-fit: contain;
 }
 
 .video-modal-title {

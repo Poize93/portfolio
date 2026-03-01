@@ -271,3 +271,129 @@ const graphicDesignUrl=["https://drive.google.com/file/d/1V4bBnQ5_4uc7cJAGyOeZZf
     link: "#",
   }, 
 ]
+
+
+
+const digitalDesignsUrl= [
+  "https://drive.google.com/file/d/1w1r08EqQ7gQQBEOdvQSeFVzumva0Im1i/preview",
+  "https://drive.google.com/file/d/1ll9EfBGUhFBjQ8dVxTpsQFMrchIf-A2z/preview",
+  "https://drive.google.com/file/d/1cInk4v4lbsK6Ylkij8cRltzTkIib11Iq/preview",
+  "https://drive.google.com/file/d/1lrEYvkAvfM_mhkw2p5NXMnDXKNY1G2tL/preview",
+  "https://drive.google.com/file/d/1A7w5ANpG3kIPxZ4TPjCudQ-xL2h5I344/preview",
+  "https://drive.google.com/file/d/1QVP1D58nPEIWe_dyjSqft4OPGlYvtLyq/preview",
+  "https://drive.google.com/file/d/1M_oiHPxH7xar1e460LSpXcMFX5tRNDrf/preview",
+  "https://drive.google.com/file/d/1Ox-oN9yZr2muVLlenSqRYadMwn7_dOrQ/preview",
+  "https://drive.google.com/file/d/1O6et_VPrC_5kPTYRP_tD4NGsR4Y5Amjp/preview"
+];
+
+  
+  export const digitalDesigns=[  {
+    id: 0,
+    title: "Showreel / Motion Reel 0",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[0],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 1,
+    title: "Showreel / Motion Reel 1",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[1],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 2,
+    title: "Showreel / Motion Reel 2",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[2],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 3,
+    title: "Showreel / Motion Reel 3",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[3],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 4,
+    title: "Showreel / Motion Reel 4",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[4],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 5,
+    title: "Showreel / Motion Reel 5",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[5],
+    color: "#E8D5B7",  link: "#",
+  },{
+    id: 6,
+    title: "Showreel / Motion Reel 6",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[6],
+    color: "#E8D5B7",  link: "#",
+  },{
+    id: 7,
+    title: "Showreel / Digital Designs 7",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[7],
+    color: "#E8D5B7",
+    link: "#",
+  },{
+    id: 8,
+    title: "Showreel / Digital Designs 8",
+    category: "Digital Designs",
+    year: "2025",
+    video: digitalDesignsUrl[8],
+    color: "#E8D5B7",
+    link: "#",
+  },]
+
+
+  const digitalIllustrationsUrl= [
+    "https://drive.google.com/file/d/1Yh3JnBpRDBZ7hh-aEyHTy5smwxA8gNL6/preview",
+    "https://drive.google.com/file/d/1G8phwu9ABizg1MPi6eZ4jgxFpvqxEROs/preview",
+    "https://drive.google.com/file/d/1QLZN7CB_zV88OMyH6jm3IfipGfDcgwys/preview"
+  ]
+
+  export const digitalIllustrations=[
+
+    {
+      id: 0,
+      title: "Showreel / Digital Illustrations 0",
+      category: "Digital Illustrations",
+      year: "2025",
+      video: digitalIllustrationsUrl[0],
+      color: "#E8D5B7",
+      link: "#",
+    },
+    {
+      id: 1,
+      title: "Showreel / Digital Illustrations 1",
+      category: "Digital Illustrations",
+      year: "2025",
+      video: digitalIllustrationsUrl[1],
+      color: "#E8D5B7",
+      link: "#",
+    },
+    {
+      id: 2,
+      title: "Showreel / Digital Illustrations 2",
+      category: "Digital Illustrations",
+      year: "2025",
+      video: digitalIllustrationsUrl[2],
+      color: "#E8D5B7",
+      link: "#",
+    },
+   
+  ]

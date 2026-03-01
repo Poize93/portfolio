@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { projects , motionGraphics, graphicDesigns} from "./data/projects";
+import { projects , motionGraphics, graphicDesigns, digitalDesigns, digitalIllustrations} from "./data/projects";
 import {
+  // graphicDesign,
   uiCaseStudy,
-  digitalDesigns,
+  // digitalDesigns,
   skillsAndTools,
 } from "./data/sections";
 import "./App.css";
@@ -87,8 +88,10 @@ function Nav({ scrolled }) {
   );
 }
 
-// Video popup modal – overlay + iframe + close
-function VideoModal({ isOpen, videoUrl, title, onClose }) {
+// Media popup modal – overlay + video (iframe) or image + close
+function VideoModal({ isOpen, videoUrl, imageUrl, title, onClose }) {
+  const isImage = !!imageUrl;
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") onClose();
@@ -111,24 +114,28 @@ function VideoModal({ isOpen, videoUrl, title, onClose }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={title || "Video"}
+      aria-label={title || (isImage ? "Image" : "Video")}
     >
       <div className="video-modal-box" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           className="video-modal-close"
           onClick={onClose}
-          aria-label="Close video"
+          aria-label="Close"
         >
           ×
         </button>
-        <div className="video-modal-player">
-          <iframe
-            src={videoUrl}
-            title={title || "Video"}
-            allow="autoplay; fullscreen"
-            allowFullScreen
-          />
+        <div className={`video-modal-player ${isImage ? "video-modal-player--image" : ""}`}>
+          {isImage ? (
+            <img src={imageUrl} alt={title || "Image"} className="video-modal-image" />
+          ) : (
+            <iframe
+              src={videoUrl}
+              title={title || "Video"}
+              allow="autoplay; fullscreen"
+              allowFullScreen
+            />
+          )}
         </div>
         {title && <p className="video-modal-title">{title}</p>}
       </div>
@@ -136,15 +143,101 @@ function VideoModal({ isOpen, videoUrl, title, onClose }) {
   );
 }
 
-// Reusable section: title + auto-scrolling carousel (no scrollbar)
+// Reusable section: title + auto-scrolling carousel with manual scroll
 function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCardClick }) {
   const isCard = type === "card";
   const isSkill = type === "skill";
+  const carouselRef = useRef(null);
+  const autoScrollRef = useRef(null);
+  const draggedRef = useRef(false);
   // Duplicate items for seamless infinite scroll
-  const duplicated = [...items, ...items];
+  const duplicated = [...items,...items];
+
+  // Auto-scroll + manual click-and-drag scroll
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const scrollPos = { value: 0 };
+    const duration = 50000;
+    let lastTime = performance.now();
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const animate = (now) => {
+      if (isDragging) {
+        autoScrollRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      const dt = now - lastTime;
+      lastTime = now;
+      const halfWidth = el.scrollWidth / 2;
+      scrollPos.value += (halfWidth / duration) * dt;
+      if (scrollPos.value >= halfWidth) scrollPos.value -= halfWidth;
+      el.scrollLeft = scrollPos.value;
+      autoScrollRef.current = requestAnimationFrame(animate);
+    };
+    autoScrollRef.current = requestAnimationFrame(animate);
+
+    const handleMouseDown = (e) => {
+      isDragging = true;
+      draggedRef.current = false;
+      startX = e.clientX;
+      startScrollLeft = el.scrollLeft;
+      el.style.cursor = "grabbing";
+      el.style.userSelect = "none";
+      e.preventDefault();
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      draggedRef.current = true;
+      e.preventDefault();
+      const dx = startX - e.clientX;
+      const newScroll = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, startScrollLeft + dx));
+      scrollPos.value = newScroll;
+      el.scrollLeft = newScroll;
+    };
+
+    const handleMouseUp = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const halfWidth = el.scrollWidth / 2;
+      let pos = el.scrollLeft;
+      if (pos >= halfWidth) pos -= halfWidth;
+      scrollPos.value = pos;
+      el.scrollLeft = pos;
+      el.style.cursor = "";
+      el.style.userSelect = "";
+      requestAnimationFrame(() => { draggedRef.current = false; });
+    };
+
+    const handleMouseLeave = () => {
+      if (isDragging) handleMouseUp();
+    };
+
+    el.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove, { passive: false });
+    window.addEventListener("mouseup", handleMouseUp);
+    el.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      if (autoScrollRef.current) cancelAnimationFrame(autoScrollRef.current);
+      el.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [items]);
 
   const handleCardClick = (item, e) => {
-    if (item.video && onVideoCardClick) {
+    if (draggedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    if ((item.video || item.image) && onVideoCardClick) {
       e.preventDefault();
       onVideoCardClick(item);
     }
@@ -156,7 +249,11 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
         <h2 className="section-title section-title--large">{title}</h2>
         {subtitle && <p className="section-sub">{subtitle}</p>}
       </div>
-      <div className="work-carousel work-carousel--auto" aria-label={title}>
+      <div
+        ref={carouselRef}
+        className="work-carousel work-carousel--auto"
+        aria-label={title}
+      >
         <div className="work-carousel-track work-carousel-track--auto">
           {isCard &&
             duplicated.map((item, i) => (
@@ -216,12 +313,14 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
 function App() {
   const [introDone, setIntroDone] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [videoModal, setVideoModal] = useState({ open: false, url: null, title: "" });
+  const [videoModal, setVideoModal] = useState({ open: false, videoUrl: null, imageUrl: null, title: "" });
   const mainRef = useRef(null);
   const heroScrollRef = useRef(null);
 
   const openVideoModal = (item) => {
-    if (item?.video) setVideoModal({ open: true, url: item.video, title: item.title || "" });
+    if (!item) return;
+    if (item.video) setVideoModal({ open: true, videoUrl: item.video, imageUrl: null, title: item.title || "" });
+    else if (item.image) setVideoModal({ open: true, videoUrl: null, imageUrl: item.image, title: item.title || "" });
   };
   const closeVideoModal = () => setVideoModal((m) => ({ ...m, open: false }));
 
@@ -252,7 +351,8 @@ function App() {
     <div className="app" ref={mainRef}>
       <VideoModal
         isOpen={videoModal.open}
-        videoUrl={videoModal.url}
+        videoUrl={videoModal.videoUrl}
+        imageUrl={videoModal.imageUrl}
         title={videoModal.title}
         onClose={closeVideoModal}
       />
@@ -315,6 +415,7 @@ function App() {
             link: p.link,
           }))}
           type="card"
+          onVideoCardClick={openVideoModal}
         />
 
         <CarouselSection
@@ -326,6 +427,7 @@ function App() {
             link: p.link,
           }))}
           type="card"
+          onVideoCardClick={openVideoModal}
         />
 
         <CarouselSection
@@ -340,9 +442,27 @@ function App() {
           id="digital-designs"
           title="Digital Designs"
           subtitle="Web and digital experiences."
-          items={digitalDesigns}
+          // items={digitalDesigns}
+          items={digitalDesigns.map((p) => ({
+            ...p,
+            link: p.link,
+          }))}
           type="card"
         />
+
+          <CarouselSection
+          id="digital-illustrations"
+          title="Digital Illustrations"
+          subtitle="Web and digital experiences."
+          items={digitalIllustrations.map((p) => ({
+            ...p,
+            link: p.link,
+          }))}
+          type="card"
+          onVideoCardClick={openVideoModal}
+        />
+
+        
 
         <CarouselSection
           id="skills-tools"
