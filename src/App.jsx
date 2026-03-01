@@ -20,6 +20,7 @@ function IntroLoader({ onComplete }) {
   const containerRef = useRef(null);
   const linesRef = useRef([]);
   const scrollHintRef = useRef(null);
+  const completedRef = useRef(false);
 
   useGSAP(
     () => {
@@ -36,6 +37,31 @@ function IntroLoader({ onComplete }) {
     },
     { scope: containerRef, dependencies: [] }
   );
+
+  // Fallback: dismiss on touch/scroll (fixes iOS where GSAP may not complete)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const dismiss = () => {
+      if (completedRef.current) return;
+      completedRef.current = true;
+      el.style.opacity = "0";
+      el.style.pointerEvents = "none";
+      el.style.visibility = "hidden";
+      el.style.transition = "opacity 0.3s ease";
+      onComplete();
+    };
+
+    el.addEventListener("touchstart", dismiss, { passive: true, once: true });
+    const handleWheel = () => { dismiss(); };
+    el.addEventListener("wheel", handleWheel, { passive: true, once: true });
+
+    return () => {
+      el.removeEventListener("touchstart", dismiss);
+      el.removeEventListener("wheel", handleWheel);
+    };
+  }, [onComplete]);
 
   return (
     <div className="intro-loader" ref={containerRef}>
