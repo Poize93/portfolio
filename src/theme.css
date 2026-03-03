@@ -1,0 +1,10 @@
+:root {
+  /* Brand colors only (fonts are defined in App.css) */
+  --color-brunt-orange: #be5103;
+  --color-off-white: #f2f0ef;
+
+  /* RGB helpers (for translucent usage) */
+  --color-brunt-orange-rgb: 190 81 3;
+  --color-off-white-rgb: 242 240 239;
+}
+

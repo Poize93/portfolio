@@ -84,9 +84,9 @@ function IntroLoader({ onComplete }) {
             </div>
           ))}
         </div>
-        <p className="intro-scroll-hint" ref={scrollHintRef}>
+        {/* <p className="intro-scroll-hint" ref={scrollHintRef}>
           Scroll
-        </p>
+        </p> */}
       </div>
     </div>
   );
@@ -113,7 +113,7 @@ function Nav({ scrolled }) {
         Shweta Dwivedi
       </a>
       <div className="nav-links">
-        <a href="#work">Work</a>
+        <a href="#motion-graphics">Work</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </div>
@@ -185,7 +185,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
   const draggedRef = useRef(false);
   const [failedThumbnails, setFailedThumbnails] = useState(new Set());
   // Duplicate items for seamless infinite scroll
-  const duplicated = [...items];
+  const duplicated = [...items, ...items];
 
   const markThumbnailFailed = (key) => {
     setFailedThumbnails((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
@@ -197,21 +197,33 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
     if (!el) return;
 
     const scrollPos = { value: 0 };
-    const duration = 100000;
     let lastTime = performance.now();
+    const pixelsPerSecond = 90;
     let isDragging = false;
+    let isTouching = false;
+    let pauseUntil = 0;
     let startX = 0;
     let startScrollLeft = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
 
     const animate = (now) => {
-      if (isDragging || (modalOpenRef && modalOpenRef.current)) {
+      // Always advance clock to prevent jumps after pause
+      const dt = now - lastTime;
+      lastTime = now;
+
+      if (
+        isDragging ||
+        isTouching ||
+        now < pauseUntil ||
+        (modalOpenRef && modalOpenRef.current)
+      ) {
         autoScrollRef.current = requestAnimationFrame(animate);
         return;
       }
-      const dt = now - lastTime;
-      lastTime = now;
       const halfWidth = el.scrollWidth / 2;
-      scrollPos.value += (halfWidth / duration) * dt;
+      scrollPos.value += (pixelsPerSecond * dt) / 1000;
       if (scrollPos.value >= halfWidth) scrollPos.value -= halfWidth;
       el.scrollLeft = scrollPos.value;
       autoScrollRef.current = requestAnimationFrame(animate);
@@ -255,10 +267,64 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
       if (isDragging) handleMouseUp();
     };
 
+    const handleTouchStart = (e) => {
+      isTouching = true;
+      touchMoved = false;
+      draggedRef.current = false;
+      const t = e.touches && e.touches[0];
+      if (t) {
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+      }
+      pauseUntil = performance.now() + 2000;
+    };
+
+    const handleTouchMove = (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      // Only treat as "drag" if it's primarily horizontal (prevents blocking vertical page scroll)
+      if (!touchMoved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+        touchMoved = true;
+        draggedRef.current = true;
+      }
+      pauseUntil = performance.now() + 2000;
+    };
+
+    const handleTouchEnd = () => {
+      isTouching = false;
+      const halfWidth = el.scrollWidth / 2;
+      let pos = el.scrollLeft;
+      if (pos >= halfWidth) pos -= halfWidth;
+      scrollPos.value = pos;
+      el.scrollLeft = pos;
+      pauseUntil = performance.now() + 2000;
+      requestAnimationFrame(() => { draggedRef.current = false; });
+    };
+
+    const handleScroll = () => {
+      const halfWidth = el.scrollWidth / 2;
+      // Keep scrollLeft within first half (seamless because content is duplicated)
+      if (el.scrollLeft >= halfWidth) el.scrollLeft -= halfWidth;
+      scrollPos.value = el.scrollLeft;
+    };
+
+    const handleWheel = () => {
+      // Trackpad/mouse horizontal scrolling should pause auto-scroll briefly
+      pauseUntil = performance.now() + 1200;
+    };
+
     el.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mousemove", handleMouseMove, { passive: false });
     window.addEventListener("mouseup", handleMouseUp);
     el.addEventListener("mouseleave", handleMouseLeave);
+    el.addEventListener("touchstart", handleTouchStart, { passive: true });
+    el.addEventListener("touchmove", handleTouchMove, { passive: true });
+    el.addEventListener("touchend", handleTouchEnd, { passive: true });
+    el.addEventListener("touchcancel", handleTouchEnd, { passive: true });
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    el.addEventListener("wheel", handleWheel, { passive: true });
 
     return () => {
       if (autoScrollRef.current) cancelAnimationFrame(autoScrollRef.current);
@@ -266,6 +332,12 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
       el.removeEventListener("mouseleave", handleMouseLeave);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchmove", handleTouchMove);
+      el.removeEventListener("touchend", handleTouchEnd);
+      el.removeEventListener("touchcancel", handleTouchEnd);
+      el.removeEventListener("scroll", handleScroll);
+      el.removeEventListener("wheel", handleWheel);
     };
   }, [items]);
 
@@ -283,9 +355,9 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
 
   return (
     <section className="work-section" id={id}>
-      <div className="work-section-header">
-        <h2 className="section-title section-title--large">{title}</h2>
-        {subtitle && <p className="section-sub">{subtitle}</p>}
+      <div className="work-section-header" >
+        <h2 className="section-title section-title--large m-auto" >{title}</h2>
+        {subtitle && <p className="section-sub" >{subtitle}</p>}
       </div>
       <div
         ref={carouselRef}
@@ -343,7 +415,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
                     </>
                   )}
                 </div>
-                <div className="project-card-info">
+                {/* <div className="project-card-info">
                   {item.category && (
                     <span className="project-card-category">{item.category}</span>
                   )}
@@ -351,7 +423,7 @@ function CarouselSection({ id, title, subtitle, items, type = "card", onVideoCar
                   {item.year && (
                     <span className="project-card-year">{item.year}</span>
                   )}
-                </div>
+                </div> */}
               </a>
             ))}
           {isSkill &&
@@ -417,7 +489,7 @@ function App() {
         title={videoModal.title}
         onClose={closeVideoModal}
       />
-      <IntroLoader onComplete={() => setIntroDone(true)} />
+      {!introDone && <IntroLoader onComplete={() => setIntroDone(true)} />}
 
       {introDone && (
         <div className="nav-wrap">
@@ -433,12 +505,12 @@ function App() {
           <p className="hero-tagline">
            A Motion , Graphic & Ui Designer crafting purposeful visuals that move , connect and communicate.
           </p>
-          <a href="#work" className="hero-cta">
+          <a href="#contact" className="hero-cta">
             Let's meet
           </a>
-          <p className="hero-scroll-hint" ref={heroScrollRef}>
+          {/* <p className="hero-scroll-hint" ref={heroScrollRef}>
             Scroll
-          </p>
+          </p> */}
         </section>
 
 
@@ -571,15 +643,15 @@ function App() {
           </h2>
           <p className="section-text">
           have a Project in mind?</p> <p className="section-text">
-          Let's build together something meaningful togther</p>
+          Let's build together something meaningful together</p>
      
           <a href="mailto:shwetadwivedi882@gmail.com" className="contact-email">
           shwetadwivedi882@gmail.com
           </a>
           <div className="contact-links">
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            {/* <a href="#" target="_blank" rel="noopener noreferrer">
               Instagram
-            </a>
+            </a> */}
             <a href="https://www.linkedin.com/in/shweta-dwivedi-6075b1224?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>

@@ -1,7 +1,10 @@
 /* Portfolio – inspired by Melvin Winkeler (Awwwards): bold identity, motion, color-driven */
 :root {
+  /* Original typography */
   --font-display: "Syne", sans-serif;
   --font-body: "DM Sans", sans-serif;
+
+  /* Base palette */
   --ink: #0a0a0a;
   --white: #fafafa;
   --coral: #e85d54;
@@ -9,6 +12,10 @@
   --lavender: #a78bfa;
   --cream: #fde68a;
   --work-bg: #1a1a1a;
+
+  /* Brand colors from theme.css */
+  --brunt-orange: var(--color-brunt-orange);
+  --off-white: var(--color-off-white);
 }
 
 *,
@@ -95,13 +102,14 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 2.5rem;
   transition: background 0.4s ease, color 0.4s ease;
   color: var(--ink);
+  pointer-events: auto;
 }
 
 .nav--scrolled {
@@ -206,6 +214,8 @@ body {
   align-items: center;
   text-align: center;
   padding: 5rem 2.5rem;
+  /* Offset anchor scroll so fixed nav doesn't cover section titles */
+  scroll-margin-top: 96px;
 }
 
 .section--work-intro {
@@ -218,18 +228,18 @@ body {
 }
 
 .section--mint {
-  background: var(--mint);
-  color: var(--ink);
+  background: var(--brunt-orange);
+  color: var(--off-white);
 }
 
 .section--lavender {
-  background: var(--lavender);
-  color: var(--ink);
+  background: var(--brunt-orange);
+  color: var(--off-white);
 }
 
 .section--cream {
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--brunt-orange);
+  color: var(--off-white);
 }
 
 .section-title {
@@ -246,7 +256,7 @@ body {
 
 .section-sub {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
-  max-width: 106ch;
+  /* max-width: 106ch; */
   opacity: 0.9;
 }
 
@@ -274,9 +284,10 @@ body {
 
 /* ========== WORK SECTION – Selected Work + horizontal carousel (one block, no pin) ========== */
 .work-section {
-  background: var(--work-bg);
-  color: var(--white);
+  background: var(--off-white);
+  color: var(--brunt-orange);
   padding: 0 0 4rem;
+  scroll-margin-top: 96px;
 }
 
 .work-section-header {
@@ -285,7 +296,7 @@ body {
 }
 
 .work-section .section-sub {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(var(--color-brunt-orange-rgb) / 0.8);
 }
 
 .work-carousel {
@@ -310,6 +321,7 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   cursor: grab;
+  touch-action: pan-x;
 }
 
 .work-carousel--auto::-webkit-scrollbar {
@@ -333,14 +345,14 @@ body {
 .skill-tile {
   flex: 0 0 auto;
   padding: 1rem 1.75rem;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgb(var(--color-brunt-orange-rgb) / 0.06);
+  border: 1px solid rgb(var(--color-brunt-orange-rgb) / 0.25);
   border-radius: 999px;
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--white);
+  color: var(--brunt-orange);
   white-space: nowrap;
 }
 
