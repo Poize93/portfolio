@@ -14,6 +14,22 @@ import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function scrollToId(id) {
+  if (!id) return;
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  const nextHash = `#${id}`;
+  if (window.location.hash !== nextHash) history.pushState(null, "", nextHash);
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  // Remove hash so nav links don't get "stuck" on same fragment.
+  const nextUrl = `${window.location.pathname}${window.location.search}`;
+  if (window.location.hash) history.pushState(null, "", nextUrl);
+}
+
 // Get Google Drive thumbnail from preview URL (carousel shows thumbnail; full video loads in popup)
 function getDriveThumbnailUrl(previewUrl, size = "w400") {
   const m = previewUrl && previewUrl.match(/\/d\/([^/]+)/);
@@ -109,13 +125,45 @@ function Nav({ scrolled }) {
 
   return (
     <nav className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
-      <a href="#" className="nav-logo" ref={logoRef}>
+      <a
+        href="#"
+        className="nav-logo"
+        ref={logoRef}
+        onClick={(e) => {
+          e.preventDefault();
+          scrollToTop();
+        }}
+      >
         Shweta Dwivedi
       </a>
       <div className="nav-links">
-        <a href="#motion-graphics">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a
+          href="#motion-graphics"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("motion-graphics");
+          }}
+        >
+          Work
+        </a>
+        <a
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("about");
+          }}
+        >
+          About
+        </a>
+        <a
+          href="#contact"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("contact");
+          }}
+        >
+          Contact
+        </a>
       </div>
     </nav>
   );
@@ -505,7 +553,14 @@ function App() {
           <p className="hero-tagline">
            A Motion , Graphic & Ui Designer crafting purposeful visuals that move , connect and communicate.
           </p>
-          <a href="#contact" className="hero-cta">
+          <a
+            href="#contact"
+            className="hero-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("contact");
+            }}
+          >
             Let's meet
           </a>
           {/* <p className="hero-scroll-hint" ref={heroScrollRef}>

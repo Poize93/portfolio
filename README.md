@@ -1,4 +1,4 @@
-# Shweta Sharma — Portfolio
+# Shweta Dwivedi — Portfolio
 
 A bold, motion-driven portfolio inspired by award-winning portfolio design (e.g. [Melvin Winkeler on Awwwards](https://www.awwwards.com/sites/melvin-winkeler)), built with React, Vite, and GSAP.
 
