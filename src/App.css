@@ -210,7 +210,7 @@ body {
 
 /* ========== COLOR-DRIVEN SECTIONS – Full viewport, bold type ========== */
 .section {
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -583,6 +583,7 @@ body {
 
 .contact-email:hover {
   opacity: 0.8;
+  font-size: clamp(1.6rem, 4.2vw, 2.6rem);
 }
 
 .contact-links {
@@ -665,5 +666,15 @@ body {
 
   .section {
     padding: 4rem 1.5rem;
+    min-height: 40vh;
   }
+
+  .section-title--large {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  .contact-email {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+
 }

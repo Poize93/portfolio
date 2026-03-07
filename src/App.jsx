@@ -698,7 +698,7 @@ function App() {
           </h2>
           <p className="section-text">
           have a Project in mind?</p> <p className="section-text">
-          Let's build together something meaningful together</p>
+          Let's build  something meaningful together</p>
      
           <a href="mailto:shwetadwivedi882@gmail.com" className="contact-email">
           shwetadwivedi882@gmail.com
