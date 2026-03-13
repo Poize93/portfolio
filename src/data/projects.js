@@ -26,8 +26,6 @@ const motionGraphicUrl = [
   "https://drive.google.com/file/d/1RZitp1QWwg1dEDbdtqrXN-xfdVHvCyBT/preview",
   "https://drive.google.com/file/d/1g711EE6FsSgR1dSTrEntMeW-tTOLrxV7/preview",
   "https://drive.google.com/file/d/1cPmGX75W0Z7quvuKbi-mxSGa0h_cje21/preview",
-  //
-
   "https://drive.google.com/file/d/11yE2NWpGuOWIJj3Ct9S0SXBTwgIUlxEa/preview",
   "https://drive.google.com/file/d/1Knr81Nw6O9fUaCcYxFaAgSIpimbqBG9K/preview",
   "https://drive.google.com/file/d/1NmmG_GPFk45-q0NA9Pl8dxhDQerMXf9C/preview",
