@@ -95,8 +95,12 @@ body {
 }
 
 @keyframes navFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .nav {
@@ -110,7 +114,9 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 2.5rem;
-  transition: background 0.4s ease, color 0.4s ease;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
   color: var(--ink);
   pointer-events: auto;
 }
@@ -478,8 +484,12 @@ body {
 }
 
 @keyframes videoModalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .video-modal-box {
@@ -675,6 +685,4 @@ body {
   .contact-email {
     font-size: clamp(1.5rem, 4vw, 2rem);
   }
-
-
 }
