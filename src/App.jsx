@@ -758,7 +758,7 @@ function App() {
           <h2 className="section-title section-title--large">Services</h2>
           <ul className="services-list">
             <li>Brand identity & art direction</li>
-            <li>Web design & development</li>
+            <li>Web design & UI design</li>
             <li>Motion design & animation</li>
             <li>Editorial & print</li>
           </ul>
