@@ -26,130 +26,36 @@ const motionGraphicUrl = [
   "https://drive.google.com/file/d/1RZitp1QWwg1dEDbdtqrXN-xfdVHvCyBT/preview",
   "https://drive.google.com/file/d/1g711EE6FsSgR1dSTrEntMeW-tTOLrxV7/preview",
   "https://drive.google.com/file/d/1cPmGX75W0Z7quvuKbi-mxSGa0h_cje21/preview",
+  //
+
   "https://drive.google.com/file/d/11yE2NWpGuOWIJj3Ct9S0SXBTwgIUlxEa/preview",
   "https://drive.google.com/file/d/1Knr81Nw6O9fUaCcYxFaAgSIpimbqBG9K/preview",
   "https://drive.google.com/file/d/1NmmG_GPFk45-q0NA9Pl8dxhDQerMXf9C/preview",
+  //
+  "https://drive.google.com/file/d/1LApMW4WjkLlzl8B26JWwapja8HYvnJFX/preview",
+  "https://drive.google.com/file/d/1PVWxQPJWgn7fUszMlBLJfcExHZuy7ttF/preview",
 ];
 
-export const motionGraphics = [
-  {
-    id: 0,
-    title: "Showreel / Motion Reel",
+export const motionGraphics = motionGraphicUrl?.map((item, index) => {
+  return {
+    id: index,
+    title: `Motion Graphics ${index}`,
     category: "Motion",
     year: "2025",
-    video: motionGraphicUrl[0],
+    video: item,
     color: "#E8D5B7",
     link: "#",
-  },
-  {
-    id: 1,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[1],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[2],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[3],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[4],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[5],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[6],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 7,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[7],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 8,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[8],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 9,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[9],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 10,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[10],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 11,
-    title: "Showreel / Motion Reel",
-    category: "Motion",
-    year: "2025",
-    video: motionGraphicUrl[11],
-    color: "#E8D5B7",
-    link: "#",
-  },
-];
+  };
+});
 
 const graphicDesignUrl = [
   "https://drive.google.com/file/d/1V4bBnQ5_4uc7cJAGyOeZZfBygNNNE-BR/preview",
   "https://drive.google.com/file/d/1L4MHUUHlmWFYXXwc0ObWV1kx4o2om8t_/preview",
   "https://drive.google.com/file/d/1F_tTj2DSuOQZEUSbOWm52gGTjpt2tDft/preview",
-  "https://drive.google.com/file/d/1a3_OCSNimDmuCxfFPtLMQNEOrUaTbA3q/preview",
+  // "https://drive.google.com/file/d/1a3_OCSNimDmuCxfFPtLMQNEOrUaTbA3q/preview",
   "https://drive.google.com/file/d/1nB1vAA9s6ZywgbtILSEZUcnVbfkHMkXr/preview",
   "https://drive.google.com/file/d/1gzBbEDBbuK8jw3y44JfBmecwjABL9Jnm/preview",
-  "https://drive.google.com/file/d/1eIgxdK71cLriLY6wxe4EOUche_CEV3ah/preview",
+  // "https://drive.google.com/file/d/1eIgxdK71cLriLY6wxe4EOUche_CEV3ah/preview",
   "https://drive.google.com/file/d/15CXOsnr79ZsLcLam84kWlqu3F1WRPibZ/preview",
   "https://drive.google.com/file/d/1HiV2zxzD29t2kwyK5NImGvtvJcku0E8T/preview",
   "https://drive.google.com/file/d/1dsi7fniunJvNjLvoD2oXHOkQzCcRdmI6/preview",
@@ -158,145 +64,27 @@ const graphicDesignUrl = [
   "https://drive.google.com/file/d/1kNBTNUeISFrx8c5pLlYxc3ArtFTisZ63/preview",
   "https://drive.google.com/file/d/14Cx9PGhQ1eGHW8Quu8sscWzgXX4JV7NS/preview",
   "https://drive.google.com/file/d/14E1Mq9d4GBjq8X_MoDXUaLEYE2rdvqL9/preview",
+  //
+  "https://drive.google.com/file/d/1O8lJl6GvAmVgEYUtmMxLW7B_j-wCcBIf/preview",
+  "https://drive.google.com/file/d/1KdkHIUnkCACAkMDgeV1H7Lg-V8auxBer/preview",
+  "https://drive.google.com/file/d/1J0HPT28FmeqS5fsyCiBMG5PJBoxXR97M/preview",
+  "https://drive.google.com/file/d/1m0BpRHpTR5F2TiB59yeyaEqiONAIBFb_/preview",
+  "https://drive.google.com/file/d/1Dz9rAavQ1_A46_0M1DSZCNfi44qzX4n4/preview",
+  "https://drive.google.com/file/d/12H8fvTbQjFdHn5eXl3M3uXSfConIEBX_/preview",
+  "https://drive.google.com/file/d/1qM1v_SKV1Y9Xnmh-Nukesd0G9eoK3vKH/preview",
 ];
 
-export const graphicDesigns = [
-  {
-    id: 0,
-    title: "Showreel / Graphic Design 0",
+export const graphicDesigns = graphicDesignUrl?.map((item, index) => {
+  return {
+    id: index,
+    title: `Graphic Designs ${index}`,
     category: "Graphic Design",
     year: "2025",
-    video: graphicDesignUrl[0],
+    video: graphicDesignUrl[index],
     color: "#E8D5B7",
     link: "#",
-  },
-  {
-    id: 1,
-    title: "Showreel / Graphic Design 1",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[1],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Showreel / Graphic Design 2",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[2],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Showreel / Graphic Design 3",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[3],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Showreel / Graphic Design 4",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[4],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Showreel / Graphic Design 5",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[5],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Showreel / Graphic Design 6",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[6],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 7,
-    title: "Showreel / Graphic Design 7",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[7],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 8,
-    title: "Showreel / Graphic Design 8",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[8],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 9,
-    title: "Showreel / Graphic Design 9",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[9],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 10,
-    title: "Showreel / Graphic Design 10",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[10],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 11,
-    title: "Showreel / Graphic Design 101",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[11],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 12,
-    title: "Showreel / Graphic Design 12",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[12],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 13,
-    title: "Showreel / Graphic Design 13",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[13],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 14,
-    title: "Showreel / Graphic Design 14",
-    category: "Graphic Design",
-    year: "2025",
-    video: graphicDesignUrl[14],
-    color: "#E8D5B7",
-    link: "#",
-  },
-];
+  };
+});
 
 const digitalDesignsUrl = [
   "https://drive.google.com/file/d/1w1r08EqQ7gQQBEOdvQSeFVzumva0Im1i/preview",
@@ -310,89 +98,17 @@ const digitalDesignsUrl = [
   "https://drive.google.com/file/d/1O6et_VPrC_5kPTYRP_tD4NGsR4Y5Amjp/preview",
 ];
 
-export const digitalDesigns = [
-  {
-    id: 0,
-    title: "Showreel / Motion Reel 0",
+export const digitalDesigns = digitalDesignsUrl?.map((item, index) => {
+  return {
+    id: index,
+    title: `Digital Designs ${index}`,
     category: "Digital Designs",
     year: "2025",
-    video: digitalDesignsUrl[0],
+    video: item,
     color: "#E8D5B7",
     link: "#",
-  },
-  {
-    id: 1,
-    title: "Showreel / Motion Reel 1",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[1],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Showreel / Motion Reel 2",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[2],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Showreel / Motion Reel 3",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[3],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Showreel / Motion Reel 4",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[4],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Showreel / Motion Reel 5",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[5],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Showreel / Motion Reel 6",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[6],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 7,
-    title: "Showreel / Digital Designs 7",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[7],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 8,
-    title: "Showreel / Digital Designs 8",
-    category: "Digital Designs",
-    year: "2025",
-    video: digitalDesignsUrl[8],
-    color: "#E8D5B7",
-    link: "#",
-  },
-];
+  };
+});
 
 const digitalIllustrationsUrl = [
   "https://drive.google.com/file/d/1Yh3JnBpRDBZ7hh-aEyHTy5smwxA8gNL6/preview",
@@ -400,35 +116,19 @@ const digitalIllustrationsUrl = [
   "https://drive.google.com/file/d/1QLZN7CB_zV88OMyH6jm3IfipGfDcgwys/preview",
 ];
 
-export const digitalIllustrations = [
-  {
-    id: 0,
-    title: "Showreel / Digital Illustrations 0",
-    category: "Digital Illustrations",
-    year: "2025",
-    video: digitalIllustrationsUrl[0],
-    color: "#E8D5B7",
-    link: "#",
+export const digitalIllustrations = digitalIllustrationsUrl?.map(
+  (item, index) => {
+    return {
+      id: index,
+      title: `Digital Illustrations ${index}`,
+      category: "Digital Illustrations",
+      year: "2025",
+      video: item,
+      color: "#E8D5B7",
+      link: "#",
+    };
   },
-  {
-    id: 1,
-    title: "Showreel / Digital Illustrations 1",
-    category: "Digital Illustrations",
-    year: "2025",
-    video: digitalIllustrationsUrl[1],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Showreel / Digital Illustrations 2",
-    category: "Digital Illustrations",
-    year: "2025",
-    video: digitalIllustrationsUrl[2],
-    color: "#E8D5B7",
-    link: "#",
-  },
-];
+);
 
 const UIDesignsUrl = [
   "https://drive.google.com/file/d/1diXvBP7nTyvsNKYXK49mq9je0w7wshGD/preview",
@@ -439,59 +139,14 @@ const UIDesignsUrl = [
   "https://drive.google.com/file/d/1wN_4oGwaeHp5bqtqfYKdxOvM4l56d4mR/preview",
 ];
 
-export const UIDesigns = [
-  {
-    id: 0,
-    title: "Showreel / UIDesigns 0",
-    category: "UIDesigns",
+export const UIDesigns = UIDesignsUrl?.map((item, index) => {
+  return {
+    id: index,
+    title: `UI Designs {index}`,
+    category: "Digital Illustrations",
     year: "2025",
-    video: UIDesignsUrl[0],
+    video: item,
     color: "#E8D5B7",
     link: "#",
-  },
-  {
-    id: 1,
-    title: "Showreel / UIDesigns 1",
-    category: "UIDesigns",
-    year: "2025",
-    video: UIDesignsUrl[1],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "Showreel / UIDesigns 2",
-    category: "UIDesigns",
-    year: "2025",
-    video: UIDesignsUrl[2],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Showreel / UIDesigns 3",
-    category: "UIDesigns",
-    year: "2025",
-    video: UIDesignsUrl[3],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Showreel / UIDesigns 4",
-    category: "UIDesigns",
-    year: "2025",
-    video: UIDesignsUrl[4],
-    color: "#E8D5B7",
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Showreel / UIDesigns 5",
-    category: "UIDesigns",
-    year: "2025",
-    video: UIDesignsUrl[5],
-    color: "#E8D5B7",
-    link: "#",
-  },
-];
+  };
+});
