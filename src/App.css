@@ -683,6 +683,6 @@ body {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
   .contact-email {
-    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-size: clamp(1rem, 2vw, 1.55rem);
   }
 }
